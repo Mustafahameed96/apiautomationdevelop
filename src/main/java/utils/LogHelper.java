@@ -15,7 +15,7 @@ public class LogHelper {
     }
 
     @Step("{0}")
-    protected static void logStep(String comment) {
+   public static void logStep(String comment) {
         log.info("STEP: " + comment + "\n");
        // WebDriverFactory.saveAllureScreenshot();
     }

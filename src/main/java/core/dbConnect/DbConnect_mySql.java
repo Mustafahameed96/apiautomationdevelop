@@ -71,6 +71,7 @@
 
 package core.dbConnect;
 
+import com.relevantcodes.extentreports.LogStatus;
 import core.configuration.TestsConfig;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -79,6 +80,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import static utils.LogHelper.logStep;
 
 public class DbConnect_mySql {
     public static String url = TestsConfig.getConfig().getDbUrl();
@@ -92,18 +95,42 @@ public class DbConnect_mySql {
 
     public static void connectDb(String url, String username, String password) throws ClassNotFoundException, SQLException {
         connection = DriverManager.getConnection(url, username, password);
+        logStep("DB connected");
     }
 
-    public static List<String> getOrderIDsList() throws SQLException {
-        String query = "";
-        ResultSet rs = null;
-        ArrayList orderIds = new ArrayList();
+    public static
+//    List<String>
+   void
+    ConnectDataBase() throws SQLException {
+//        String query = "";
+//        ResultSet rs = null;
+//        ArrayList orderIds = new ArrayList();
 
         try {
             connectDb(url, username, password);
         } catch (ClassNotFoundException var4) {
             var4.printStackTrace();
         }
+//
+//        query = "SELECT booking_confirmation_id FROM servicemarket_business.booking_confirmation WHERE booking_id=53045";
+//        statement = connection.createStatement();
+//        rs = statement.executeQuery(query);
+//        rs.setFetchSize(100);
+
+//        while(rs.next()) {
+//         //   orderIds.add(rs.getString("booking_confirmation_id"));
+//        }
+
+//        rs.close();
+//        statement.close();
+       // return orderIds;
+    }
+    public static List<String> orderIdlist() throws SQLException {
+        String query = "";
+        ResultSet rs = null;
+        ArrayList orderIds = new ArrayList();
+
+
 
         query = "SELECT booking_confirmation_id FROM servicemarket_business.booking_confirmation WHERE booking_id=53045";
         statement = connection.createStatement();
@@ -116,6 +143,8 @@ public class DbConnect_mySql {
 
         rs.close();
         statement.close();
-        return orderIds;
+         return orderIds;
     }
+
+
 }

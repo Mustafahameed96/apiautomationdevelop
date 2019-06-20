@@ -5,13 +5,11 @@ import com.relevantcodes.extentreports.LogStatus;
 import core.PreReqs.TestBase;
 import core.configuration.TestsConfig;
 
+import core.dbConnect.DbConnect_mySql;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 import utils.LogHelper;
 
 import java.awt.*;
@@ -35,7 +33,22 @@ public class BaseTest extends LogHelper{
     @BeforeSuite
     public void startReport(){
         if (isEnableReporting.equals("true")) {
+
+
+            try
+            {
+                DbConnect_mySql.ConnectDataBase();
+
+            }
+            catch (SQLException e)
+            {
+                // do something appropriate with the exception, *at least*:
+                e.printStackTrace();
+            }
+
+
             MainCall.startReport();
+
         }
 
         MainCall.setupRestAssured();

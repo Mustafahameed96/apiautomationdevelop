@@ -16,6 +16,18 @@ public class AllFlows extends BaseTest{
     public void createNewEmployee(){
         logStep("Create new employee");
         CreateEmployees.sanityFlowCreateEmployees("Maaz", "10", "");
+
+        try
+        {
+           System.out.println(DbConnect_mySql.orderIdlist());
+
+
+        }
+        catch (SQLException e)
+        {
+            // do something appropriate with the exception, *at least*:
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -45,9 +57,7 @@ public class AllFlows extends BaseTest{
         List<String> id = response.jsonPath().getJsonObject("id");
         DeleteEmployees.sanityFlowDeleteEmployees(id.get(5));
     }
-    @Test
-    public void testDB() throws SQLException {
-        System.out.println(DbConnect_mySql.getOrderIDsList());
-    }
+
+
 
 }
