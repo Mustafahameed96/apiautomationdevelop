@@ -19,7 +19,7 @@ public class FetchEmployees extends BaseTest {
         logStep("Sanity API - Fetch Employee");
 
 //        DbConnect_oracle.getVerificationCode();
-        List<String> actualData = DbConnect_mySql.getDataFromPatientConsentTable("HC12345677");
+      //  List<String> actualData = DbConnect_mySql.getDataFromPatientConsentTable("HC12345677");
 //        System.out.println(actualData.get(0));
 
         response =

@@ -1,5 +1,6 @@
 package module.Flow;
 
+import core.dbConnect.DbConnect_mySql;
 import core.general.BaseTest;
 import core.general.ReusableMethods;
 import module.Validations.*;
@@ -43,6 +44,10 @@ public class AllFlows extends BaseTest{
 
         List<String> id = response.jsonPath().getJsonObject("id");
         DeleteEmployees.sanityFlowDeleteEmployees(id.get(5));
+    }
+    @Test
+    public void testDB() throws SQLException {
+        System.out.println(DbConnect_mySql.getOrderIDsList());
     }
 
 }
