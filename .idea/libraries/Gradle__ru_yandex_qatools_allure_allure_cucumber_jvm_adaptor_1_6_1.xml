@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ru.yandex.qatools.allure:allure-cucumber-jvm-adaptor:1.6.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.yandex.qatools.allure/allure-cucumber-jvm-adaptor/1.6.1/132732fde2a88913ef3210f5cdcc40bc0e6d88c/allure-cucumber-jvm-adaptor-1.6.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.yandex.qatools.allure/allure-cucumber-jvm-adaptor/1.6.1/3e7d76ac9e37a3dc64a69eb56c6e6e2bbcd48298/allure-cucumber-jvm-adaptor-1.6.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

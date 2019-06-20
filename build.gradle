@@ -1,0 +1,52 @@
+group 'awienid'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+//    maven { url 'http://repo1.maven.org/maven2' }
+}
+
+dependencies {
+    compile "org.testng:testng:5.14.10"
+
+    compile 'io.rest-assured:rest-assured:3.3.0'
+//    compile 'io.rest-assured:json-path:3.3.0'
+//    compile 'io.rest-assured:xml-path:3.3.0'
+//    testCompile 'io.rest-assured:json-schema-validator:3.3.0'
+    compile "ru.yandex.qatools.allure:allure-cucumber-jvm-adaptor:1.6.1"
+    testCompile "ru.yandex.qatools.allure:allure-testng-adaptor:1.4.0"
+
+    compile 'com.relevantcodes:extentreports:2.41.2'
+    compile 'com.aventstack:extentreports:4.0.9'
+
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.8'
+
+    compile files('libs/ojdbc7.jar')
+    compile 'mysql:mysql-connector-java:5.1.6' //For MySQL DB Connection
+    compile(group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: '2.8') {
+        exclude(module: 'log4j')
+        exclude(module: 'slf4j-log4j12')
+    }
+}
+
+test {
+    useTestNG()
+//    include '**module.Validations/*'
+}
+
+task executeAllTests(type: Exec) {
+    commandLine "gradle", "test"
+}
+
+task executeFlows(type: Exec) {
+    commandLine "gradle", "test", "--tests", "module.Flow.*"
+}
+
+task executeValidations(type: Exec) {
+    commandLine "gradle", "test", "--tests", "module.Validations.*"
+}
+
