@@ -118,6 +118,14 @@ public class AllFlows extends BaseTest{
         System.out.println(operation_Message + " : Request Cancelled");
     }
 
+    @Test
+    public void changePartner(){
+
+
+    AcceptPartnerRequest();
+        operation_Message=changeProvider.changeRequest(booking_ID,access_token,partner_id);
+        System.out.println(operation_Message + " : Partner Request Cancelled");
+    }
 
 
 

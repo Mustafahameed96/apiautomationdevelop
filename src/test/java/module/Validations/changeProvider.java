@@ -5,29 +5,27 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class rejectChangeInRequest extends BaseTest {
-    rejectChangeInRequest(){
+public class changeProvider extends BaseTest {
+    changeProvider(){}
 
-    }
     @Test
-    public static String changeRequest( String  bookingConfirmationId , String accessToken){
-        logStep("reject change request Partner Request API - request for accept booking request");
+    public static String changeRequest( String  BookingId , String accessToken,String partner_ID){
+        logStep("Change Partner Request API - request for accept booking request");
 
 
 
         response =
                 given()
 //                    .log().all()
-
+                        .headers("signedInUserId","7")
                         .headers( "Authorization", "bearer " + accessToken )
                         .headers( "Content-Type", "application/json")
                         .headers( "accessToken", accessToken)
-                        .headers("isCustomerLoggedIn",true)
 
-                        .body(requestPayloads.rejChangeRequest.sanityPayload(bookingConfirmationId))
+                        .body(requestPayloads.rejChangeRequest.sanityPayload(BookingId))
                         .when()
 //                        .post("/oauth/token").getBody().jsonPath().get("access_token");
-                        .put(" /v2/booking-change-request/reject")
+                        .put("/v2/booking/change-provider/"+BookingId+"/"+960+"")
                         .then()
                         .assertThat().statusCode(200).extract()
                         .response();
