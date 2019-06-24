@@ -13,12 +13,7 @@ import java.util.List;
 
 public class AllFlows extends BaseTest{
     public AllFlows(){}
-//    @Test
-//    public void createNewEmployee(){
-//        System.out.println("TEST CREATE !!!");
-//
-//        CreateEmployees.sanityFlowCreateEmployees("Maaz", "10", "");
-//    }
+
     String access_token = null;
     String User_data = null;
     String booking_ID = null;
@@ -32,7 +27,7 @@ public class AllFlows extends BaseTest{
 
 
 
-        access_token =    UserAuth.userAuthToServiceMarket("admin","v3nturedive","SM-IP-CLIENT","password");
+        access_token =    UserAuth.userAuthToServiceMarket("ccfix@mailinator.com","omeristheman","SM-WEB-CLIENT","SM-WEB-CLIENT");
         System.out.println(access_token);
 
 
