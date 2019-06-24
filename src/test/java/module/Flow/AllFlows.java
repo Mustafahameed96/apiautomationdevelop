@@ -5,58 +5,124 @@ import core.general.BaseTest;
 import core.general.ReusableMethods;
 import module.Validations.*;
 import org.testng.annotations.Test;
+import requestPayloads.CreateRegistrationPayload;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AllFlows extends BaseTest{
     public AllFlows(){}
+//    @Test
+//    public void createNewEmployee(){
+//        System.out.println("TEST CREATE !!!");
+//
+//        CreateEmployees.sanityFlowCreateEmployees("Maaz", "10", "");
+//    }
+    String access_token = null;
+    String User_data = null;
+    String booking_ID = null;
+    String [] returned_fromfunction = null;
+    String partner_id = null;
+    String Booking_confirmation_id = null;
+    String operation_Message = null;
 
     @Test
-    public void createNewEmployee(){
-        logStep("Create new employee");
-        CreateEmployees.sanityFlowCreateEmployees("Maaz", "10", "");
-
-        try
-        {
-           System.out.println(DbConnect_mySql.orderIdlist());
+    public void UserAuthToServiceMarket(){
 
 
-        }
-        catch (SQLException e)
-        {
-            // do something appropriate with the exception, *at least*:
-            e.printStackTrace();
-        }
+
+        access_token =    UserAuth.userAuthToServiceMarket("admin","v3nturedive","SM-IP-CLIENT","password");
+        System.out.println(access_token);
+
+
+
     }
-
     @Test
-    public void updateEmployeeDetails() throws SQLException, ClassNotFoundException {
-        logStep("Update employee details");
+    public void UserRegistrationToServiceMarket(){
 
-        FetchEmployees.sanityFlowFetchEmployees();
+        UserAuthToServiceMarket();
+        User_data = CustomerRegistration.userRegistrationToServiceMarket("mariam.hammad@venturedive.com","Mariam","Hammad","test",access_token);
+        System.out.println(User_data);
 
-        List<String> id = response.jsonPath().getJsonObject("id");
-        int random = ReusableMethods.generateRandomIntIntRange(0, 10);
 
-        FetchRespectiveEmployees.sanityFlowFetchRespectiveEmployees(id.get(0));
-
-        String name = response.path("employee_name").toString();
-        String salary = response.path("employee_salary").toString();
-        String age = response.path("employee_age").toString();
-
-        UpdateEmployeeDetails.sanityFlowUpdateEmployeeDetails(id.get(0), name, salary, age);
     }
-
     @Test
-    public void deleteEmployeeDetails() throws SQLException, ClassNotFoundException {
-        logStep("Delete employee details");
+    public void UserBookingOnServiceMarket(){
 
-        FetchEmployees.sanityFlowFetchEmployees();
 
-        List<String> id = response.jsonPath().getJsonObject("id");
-        DeleteEmployees.sanityFlowDeleteEmployees(id.get(5));
+    UserRegistrationToServiceMarket();
+    booking_ID = CustomerBooking.userBookingToServiceMarket(User_data,access_token);
+        System.out.println(booking_ID);
+
+
+
     }
+    @Test
+    public void AllocateToPartner(){
+
+
+    UserBookingOnServiceMarket();
+    returned_fromfunction = Allocatedpartners.GetListOfAllocatedPartners(booking_ID,access_token);
+    partner_id = returned_fromfunction[0];
+    Booking_confirmation_id = returned_fromfunction[1];
+    System.out.println(partner_id+" partner_id");
+    System.out.println(Booking_confirmation_id + " Booking confirmation Id");
+    }
+    @Test
+    public void AcceptPartnerRequest(){
+
+
+    AllocateToPartner();
+    operation_Message=AcceptRequest.partnerAcceptRequest(Booking_confirmation_id,access_token);
+    System.out.println(operation_Message + " : Accepted");
+    }
+    @Test
+    public void RejectPartnerRequest(){
+
+
+        AllocateToPartner();
+        operation_Message=RejectRequest.partnerRejectRequest(Booking_confirmation_id,access_token);
+        System.out.println(operation_Message + " : Rejected");
+    }
+    @Test
+    public void CancelPartnerRequest(){
+
+
+        AllocateToPartner();
+        operation_Message=Cancel_Booking.partnercancelrequest(booking_ID,access_token);
+        System.out.println(operation_Message + " : Cancelled");
+    }
+    @Test
+    public void ChangeInBookingRequest(){
+
+
+        AcceptPartnerRequest();
+        operation_Message=changeRequest.changeRequest(booking_ID,access_token);
+        System.out.println(operation_Message + " : Cancelled");
+    }
+    @Test
+    public void AcceptChangeInBookingRequest(){
+
+
+        ChangeInBookingRequest();
+        operation_Message=acceptChangeRequest.changeRequest(booking_ID,access_token);
+        System.out.println(operation_Message + " : Cancelled");
+    }
+    @Test
+    public void RejectChangeInBookingRequest(){
+
+
+        ChangeInBookingRequest();
+        operation_Message=rejectChangeInRequest.changeRequest(booking_ID,access_token);
+        System.out.println(operation_Message + " : Request Cancelled");
+    }
+
+
+
+
+
+
 
 
 

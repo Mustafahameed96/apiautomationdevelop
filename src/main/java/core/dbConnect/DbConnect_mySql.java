@@ -95,6 +95,7 @@ public class DbConnect_mySql {
 
     public static void connectDb(String url, String username, String password) throws ClassNotFoundException, SQLException {
         connection = DriverManager.getConnection(url, username, password);
+        statement = connection.createStatement();
         logStep("DB connected");
     }
 
@@ -125,6 +126,7 @@ public class DbConnect_mySql {
 //        statement.close();
        // return orderIds;
     }
+
     public static List<String> orderIdlist() throws SQLException {
         String query = "";
         ResultSet rs = null;
@@ -133,7 +135,7 @@ public class DbConnect_mySql {
 
 
         query = "SELECT booking_confirmation_id FROM servicemarket_business.booking_confirmation WHERE booking_id=53045";
-        statement = connection.createStatement();
+
         rs = statement.executeQuery(query);
         rs.setFetchSize(100);
 
